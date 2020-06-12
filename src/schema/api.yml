@@ -1,0 +1,240 @@
+openapi: "3.0.0"
+info:
+  version: "1"
+  title: "POC - API Gateway"
+paths:  
+  /pets/{id}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Pets management
+      summary: finds a pet by id
+      description: Retrieve a pet based on its id
+      operationId: findPetById
+      parameters:
+        - $ref: "#/components/parameters/headerAuthToken"
+        - $ref: "#/components/parameters/headerContentType"
+        - $ref: "#/components/parameters/headerAccept"
+        - $ref: "#/components/parameters/headerAPIVersion"
+        - $ref: "#/components/parameters/pathPetId"
+      responses:
+        "200":
+          description: "**Success.**"
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Pet"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "500":
+          $ref: "#/components/responses/500"
+  /pets:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Pets management
+      summary: Create a new pet
+      description: >-
+        Create a new pet based on the schema
+      operationId: createPet
+      requestBody:
+        description: accepted json schema for this request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pet"
+      parameters:
+        - $ref: "#/components/parameters/headerAuthToken"
+        - $ref: "#/components/parameters/headerContentType"
+        - $ref: "#/components/parameters/headerAccept"
+        - $ref: "#/components/parameters/headerAPIVersion"
+      responses:
+        "201":
+          description: "**Success.**"
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Pet"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "500":
+          $ref: "#/components/responses/500"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    headerContentType:
+      name: Content-Type
+      in: header
+      description: |
+        Request type `application/json`
+      required: true
+      schema:
+        type: string
+        enum: ["application/json"]
+    headerAccept:
+      name: Accept
+      in: header
+      description: |
+        Response type `application/json`
+      required: false
+      schema:
+        type: string
+        enum: ["application/json"]
+    headerAuthToken:
+      name: Authorization
+      in: header
+      description: >
+        Authorization header containing the callers access token as **Bearer**, as specified in the RFC 6750.
+      required: true
+      schema:
+        type: string
+    headerAPIVersion:
+      name: api-version
+      in: header
+      description: Version of the API
+      required: true
+      schema:
+        type: string
+        enum: ["1"]
+    pathPetId:
+      name: id
+      required: true
+      in: path
+      description: The id of the pet
+      schema:
+        type: string
+  responses:
+    "204":
+      description: >
+        **No Content** the request is executed successfully
+    "400":
+      description: >
+        **Bad Request**. The request could not be understood by the server due
+        to incorrect syntax.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ResponseError"
+    "401":
+      description: >
+        **Unauthorized**. The request requires user authentication or the token
+        passed is invalid.
+      headers:
+        WWW-Authenticate:
+          description: Contains the 'Bearer' authentication challenge. When the request is
+            without authentication, no error info is sent. When the request
+            attempts an invalid or expired token, an 'invalid_token' error is
+            returned.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ResponseError"
+    "403":
+      description: >
+        **Forbidden**. The request is understood and authenticated but the
+        server refused to authorize it.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ResponseError"
+    "404":
+      description: >
+        **Not Found**. The requested resource could not be found but may be
+        available again in the future. Subsequent requests by the client are
+        permissible.
+    "405":
+      description: >
+        **Method Not Allowed**. A request was made of a resource using a request
+        method not supported by that resource; for example, using GET on a form
+        which requires data to be presented via POST, or using PUT on a
+        read-only resource.
+    "406":
+      description: >
+        **Not Acceptable**. The requested resource is only capable of generating
+        content not acceptable according to the Accept headers sent in the
+        request.
+    "409":
+      description: >
+        **Conflict**. The requested resource is in conflict with another state.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ResponseError"
+    "415":
+      description: >
+        **Unsupported Media Type**. The request entity has a media type which
+        the server or resource does not support. For example, the client uploads
+        an image as .bmp, .jpg format, but the server requires that images use a
+        different format
+    "422":
+      description: |
+        **Unprocessable Entity**. The request is missing a required parameter.
+    "500":
+      description: >
+        **Internal Server Error**. The server encountered an unexpected
+        condition which prevented it from fulfilling the request.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ResponseError"
+  schemas:
+    Pet:
+      required:
+        - name
+        - breed
+        - owner
+      properties:
+        id:
+          type: string
+          description: The pet's identifier
+        name:
+          type: string
+          description: The pet's name
+        breed:
+          type: string
+          description: The pet's breed
+        owner:
+          type: string
+          description: The pet's owner
+        color:
+          type: string
+          description: The pet's color
+          enum:
+            - YELLOW
+            - BROWN
+            - WHITE
+            - BLACK
+        age:
+          type: integer
+          description: The pet's age
+    ResponseError:
+      properties:
+        error:
+          type: string
+          description: As per RFC 6749, can be invalid_request, invalid_client,
+            invalid_grant, unauthorized client, un-supported grant type.
+        error_description:
+          type: string
+          description: Description of the error.
+security:
+  - bearerAuth: []

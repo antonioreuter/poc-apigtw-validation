@@ -1,0 +1,30 @@
+service: poc-apigtw-validation
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+  stage: dev
+  region: eu-central-1
+
+functions:
+  pets-get:
+    handler: src/controllers/getPets.handler
+    events:      
+      - http:
+          path: pets/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: false
+
+  pets-create:
+    handler: src/controllers/postPets.handler
+    events:
+      - http:
+          path: pets
+          method: post          

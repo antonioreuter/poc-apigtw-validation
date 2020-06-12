@@ -1,0 +1,69 @@
+{
+  "body": null,
+  "headers": {
+    "User-Agent": "PostmanRuntime/7.24.1",
+    "Accept": "*/*",
+    "Cache-Control": "no-cache",
+    "Postman-Token": "e2cd327b-7cda-474e-a01c-9c8de430dd81",
+    "Host": "localhost:3000",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Cookie": "JSESSIONID=node09qfodyo1kivl1188gzlbnlcva2.node0"
+  },
+  "httpMethod": "GET",
+  "isBase64Encoded": false,
+  "multiValueHeaders": {
+    "User-Agent": ["PostmanRuntime/7.24.1"],
+    "Accept": ["*/*"],
+    "Cache-Control": ["no-cache"],
+    "Postman-Token": ["e2cd327b-7cda-474e-a01c-9c8de430dd81"],
+    "Host": ["localhost:3000"],
+    "Accept-Encoding": ["gzip, deflate, br"],
+    "Connection": ["keep-alive"],
+    "Cookie": ["JSESSIONID=node09qfodyo1kivl1188gzlbnlcva2.node0"]
+  },
+  "multiValueQueryStringParameters": {
+    "limit": ["10"]
+  },
+  "path": "/pets",
+  "pathParameters": null,
+  "queryStringParameters": {
+    "limit": "10"
+  },
+  "requestContext": {
+    "accountId": "offlineContext_accountId",
+    "apiId": "offlineContext_apiId",
+    "authorizer": {
+      "principalId": "offlineContext_authorizer_principalId"
+    },
+    "domainName": "offlineContext_domainName",
+    "domainPrefix": "offlineContext_domainPrefix",
+    "extendedRequestId": "ckb9nur6700037gcc7wgx2rl9",
+    "httpMethod": "GET",
+    "identity": {
+      "accessKey": null,
+      "accountId": "offlineContext_accountId",
+      "apiKey": "offlineContext_apiKey",
+      "caller": "offlineContext_caller",
+      "cognitoAuthenticationProvider": "offlineContext_cognitoAuthenticationProvider",
+      "cognitoAuthenticationType": "offlineContext_cognitoAuthenticationType",
+      "cognitoIdentityId": "offlineContext_cognitoIdentityId",
+      "cognitoIdentityPoolId": "offlineContext_cognitoIdentityPoolId",
+      "principalOrgId": null,
+      "sourceIp": "127.0.0.1",
+      "user": "offlineContext_user",
+      "userAgent": "PostmanRuntime/7.24.1",
+      "userArn": "offlineContext_userArn"
+    },
+    "path": "/pets",
+    "protocol": "HTTP/1.1",
+    "requestId": "ckb9nur6800047gcc3jtcg3r9",
+    "requestTime": "10/Jun/2020:20:02:29 +0200",
+    "requestTimeEpoch": 1591812149253,
+    "resourceId": "offlineContext_resourceId",
+    "resourcePath": "/dev/pets",
+    "stage": "dev"
+  },
+  "resource": "/dev/pets",
+  "stageVariables": null
+}
