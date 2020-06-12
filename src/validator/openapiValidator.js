@@ -87,7 +87,6 @@ module.exports = class OpenApiValidator {
       body: JSON.parse(response.body),
       headers: httpHeaders
     })) {
-      console.log(`Response validation errors: ${JSON.stringify(targetSchema.errors)}`);
       throw new ResponseValidationError(targetSchema.errors, this.errorOptions);
     }
   }
