@@ -13,7 +13,7 @@ module.exports.handler = async event => {
       {
         id: "10",
         name: "Francesca",
-        breed: "Vira-lata",
+        breed: "vira-lata",
         owner: "Antonio e Natalia"
       },
       null,
@@ -24,6 +24,7 @@ module.exports.handler = async event => {
   try {
     const request = event;
     apiValidator.validateRequest(request);
+    //
     apiValidator.validateResponse(request, successResponse);
 
     return successResponse;

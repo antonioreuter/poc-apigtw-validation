@@ -38,7 +38,7 @@ module.exports = class OpenApiValidator {
     const httpHeaders = cloneHttpHeaders(request.headers);
     const path = request.path;
     const httpMethod = request.requestContext.httpMethod.toLowerCase();
-    const contentType = httpHeaders["Content-Type"] || "application/json";
+    const contentType = httpHeaders["content-type"] || "application/json";
     const targetSchema =
       this.schemaEndpointResolver.getMethodSchema(
         this.schemas,
