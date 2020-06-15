@@ -7,7 +7,7 @@ const apiValidator = new OpenApiValidator("src/schema/api.yml", {
 });
 
 module.exports.handler = async event => {
-  const successResponse = {
+  const response = {
     statusCode: 200,
     body: JSON.stringify(
       {
@@ -24,10 +24,9 @@ module.exports.handler = async event => {
   try {
     const request = event;
     apiValidator.validateRequest(request);
-    //
-    apiValidator.validateResponse(request, successResponse);
+    apiValidator.validateResponse(request, response);
 
-    return successResponse;
+    return response;
   } catch (err) {
     return {
       statusCode: 500,

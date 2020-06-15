@@ -47,6 +47,8 @@ module.exports = class OpenApiValidator {
       ) || {};
     const errors = [];   
 
+    console.log(`Target schema: ${JSON.stringify(targetSchema)}`);
+
     if (targetSchema.parameters) {
       const isParametersValid = targetSchema.parameters.validate({
         query: request.queryStringParameters || {},
