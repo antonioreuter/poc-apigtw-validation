@@ -4,7 +4,7 @@ const AWS = require('aws-sdk');
 
 let dbConf = {};
 
-if (process.env.STAGE == "dev") {
+if (process.env.STAGE == "XXX") {
     dbConf = {
         region: "localhost",
         endpoint: "http://localhost:8000"
