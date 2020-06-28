@@ -1,7 +1,24 @@
 service: poc-apigtw-validation
 
 plugins:
+  - serverless-dynamodb-local
   - serverless-offline
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      image: dynamodb-local
+      port: 8000
+      migrate: true
+      noStart: true
+      inMemory: true
+    seed:
+      test:
+        sources:
+          - table: 'POC-Pets'
+            sources: [ './seed/pets.json' ]
 
 provider:
   name: aws
@@ -10,9 +27,17 @@ provider:
   stage: dev
   region: eu-central-1
 
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:*
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:POC-Pets"
+
 functions:
   pets-get:
     handler: src/controllers/getPets.handler
+    environment:
+      DYNAMODB_TABLE: 'POC-Pets'
     events:      
       - http:
           path: pets/{id}
@@ -24,7 +49,25 @@ functions:
 
   pets-create:
     handler: src/controllers/postPets.handler
+    environment:
+      DYNAMODB_TABLE: 'POC-Pets'
     events:
       - http:
           path: pets
           method: post          
+
+resources:
+  Resources:
+    POCPets:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: "POC-Pets"
+        AttributeDefinitions:
+          - AttributeName: "id"
+            AttributeType: "S"          
+        KeySchema:
+          - AttributeName: "id"
+            KeyType: "HASH"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5          

@@ -1,19 +1,28 @@
 'use strict';
 
+const { uuid } = require('uuidv4');
+const dbClientFactory = require("../util/dbClientFactory");
 const OpenApiValidator = require("../validator/openapiValidator");
 
 const apiValidator = new OpenApiValidator("src/schema/api.yml");
 
+const dbClient = dbClientFactory.createDBClientFactory();
+
 module.exports.handler = async event => {
+  const pet = JSON.parse(event.body);
+  pet.id = uuid();
+
+  const params = {
+    TableName: process.env.DYNAMODB_TABLE,
+    Item: pet
+  }
+
+  await dbClient.put(params).promise();
+
   const response = {
     statusCode: 201,
     body: JSON.stringify(
-      {
-        id: "10",
-        name: "Francesca",
-        breed: "Vira-lata",
-        owner: "Antonio e Natalia",
-      },
+      pet,
       null,
       2
     ),
