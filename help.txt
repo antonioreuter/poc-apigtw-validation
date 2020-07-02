@@ -1,6 +1,9 @@
 #launch localstack
 docker-compose up
 
+#launch localstack on OSX
+TMPDIR=/private$TMPDIR docker-compose up
+
 #deploy lambda - defaul us-east-1 same one defined in localstack docker-compose.yml
 sls deploy --stage dev --region us-east-1
 
@@ -9,3 +12,10 @@ sls dynamodb seed --seed=dev
 
 #start the application locally
 npm run start:local
+
+
+#List tables
+aws --endpoint http://localhost:4566 dynamodb list-tables
+
+#List all records
+aws --endpoint http://localhost:4566 dynamodb scan --table-name POC-Pets

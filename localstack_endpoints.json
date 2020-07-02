@@ -1,12 +1,12 @@
 {
-    "APIGateway": "http://localhost:4567",
-    "CloudFormation": "http://localhost:4581",
-    "CloudWatch":"http://localhost:4582",
-    "DynamoDB": "http://localhost:4569",
-    "DynamoDBStreams": "http://localhost:4570",
-    "IAM": "http://localhost:4593",
-    "Lambda": "http://localhost:4574",
-    "Route53": "http://localhost:4580",
-    "S3": "http://localhost:4572",
-    "StepFunctions": "http://localhost:4585"
+    "APIGateway": "http://localhost:4566",
+    "CloudFormation": "http://localhost:4566",
+    "CloudWatch":"http://localhost:4566",
+    "DynamoDB": "http://localhost:4566",
+    "DynamoDBStreams": "http://localhost:4566",
+    "IAM": "http://localhost:4566",
+    "Lambda": "http://localhost:4566",
+    "Route53": "http://localhost:4566",
+    "S3": "http://localhost:4566",
+    "StepFunctions": "http://localhost:4566"
 }

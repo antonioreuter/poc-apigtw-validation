@@ -25,7 +25,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "sls": "sls",
     "start:local": "sls offline start --port 3000",
-    "seed:test": "sls dynamodb seed --seed=test",
+    "seed": "sls dynamodb seed --seed=dev",
     "deploy": "serverless deploy"
   },
   "author": "",

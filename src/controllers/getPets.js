@@ -10,6 +10,9 @@ const apiValidator = new OpenApiValidator("src/schema/api.yml", {
 const dbClient = dbClientFactory.createDBClientFactory();
 
 module.exports.handler = async event => {
+  console.log("-------EVENT--------");
+  console.log(`${JSON.stringify(event)}`);
+  console.log("---------------");
 
   const params = {
     KeyConditionExpression: `id = :id`,

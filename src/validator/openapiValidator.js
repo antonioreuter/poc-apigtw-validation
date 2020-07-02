@@ -71,6 +71,7 @@ module.exports = class OpenApiValidator {
 
     if (errors.length > 0) throw new RequestValidationError(_.flatten(errors), this.errorOptions);
 
+    console.log('Request is valid!');
     return true;
   }
 
@@ -91,5 +92,6 @@ module.exports = class OpenApiValidator {
     })) {
       throw new ResponseValidationError(targetSchema.errors, this.errorOptions);
     }
+    console.log("Response is valid");
   }
 };

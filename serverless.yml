@@ -17,7 +17,7 @@ custom:
     stages:
       - dev
     start:
-      port: 4569
+      port: 4566
       migrate: true
       noStart: true
       inMemory: true
@@ -80,5 +80,5 @@ resources:
           - AttributeName: "id"
             KeyType: "HASH"
         ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5          
+          ReadCapacityUnits: 6
+          WriteCapacityUnits: 6          

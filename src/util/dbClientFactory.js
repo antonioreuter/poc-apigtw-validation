@@ -4,15 +4,15 @@ const AWS = require('aws-sdk');
 
 let dbConf = {};
 
-if (process.env.STAGE == "XXX") {
+if (process.env.STAGE == "dev") {
     dbConf = {
-        region: "localhost",
-        endpoint: "http://localhost:8000"
+        region: "us-east-1",
+        endpoint: "http://localhost:4566"
     }
 };
 
 const dbOptions = {
-    region: process.env.AWS_DEFAULT_REGION || "eu-central-1",
+    region: "us-east-1",
     maxRetries: 3,
     retryDelayOptions: { base: 300 }
 };
