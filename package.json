@@ -10,17 +10,22 @@
     "openapi-contract-validator": "^1.0.0",
     "openapi-validator-middleware": "^3.0.0",
     "swagger-object-validator": "^1.2.2",
-    "underscore": "^1.10.2"
+    "underscore": "^1.10.2",
+    "uuidv4": "^6.1.1"
   },
   "devDependencies": {
-    "aws-sdk": "^2.693.0",
+    "aws-sdk": "^2.706.0",
     "jest": "^26.0.1",
     "serverless": "^1.72.0",
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-localstack": "^0.4.24",
     "serverless-offline": "^6.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sls": "sls",
+    "start:local": "sls offline start --port 3000",
+    "seed": "sls dynamodb seed --seed=dev",
     "deploy": "serverless deploy"
   },
   "author": "",

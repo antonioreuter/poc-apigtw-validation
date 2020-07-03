@@ -1,18 +1,54 @@
-service: poc-apigtw-validation
+service: poc-apigtwy
 
 plugins:
+  - serverless-localstack
+  - serverless-dynamodb-local
   - serverless-offline
+
+custom:
+  localstack:
+    stages:
+      - dev
+    host: http://localhost
+    endpointFile: localstack_endpoints.json
+    lambda:
+      mountCode: true
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 4566
+      migrate: true
+      noStart: true
+      inMemory: true
+    seed:
+      dev:
+        sources:
+          - table: 'POC-Pets'
+            sources: [ './seed/pets.json' ]
+
 
 provider:
   name: aws
   runtime: nodejs10.x
 
   stage: dev
-  region: eu-central-1
+  region: us-east-1
+
+  # deploymentBucket:
+  #   name: ${self:service}-${opt:stage}-deployment-bucket
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:*
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:POC-Pets"
 
 functions:
   pets-get:
     handler: src/controllers/getPets.handler
+    environment:
+      DYNAMODB_TABLE: 'POC-Pets'
     events:      
       - http:
           path: pets/{id}
@@ -24,7 +60,25 @@ functions:
 
   pets-create:
     handler: src/controllers/postPets.handler
+    environment:
+      DYNAMODB_TABLE: 'POC-Pets'
     events:
       - http:
           path: pets
           method: post          
+
+resources:
+  Resources:
+    POCPets:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: "POC-Pets"
+        AttributeDefinitions:
+          - AttributeName: "id"
+            AttributeType: "S"          
+        KeySchema:
+          - AttributeName: "id"
+            KeyType: "HASH"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 6
+          WriteCapacityUnits: 6          
