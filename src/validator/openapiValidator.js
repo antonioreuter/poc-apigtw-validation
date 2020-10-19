@@ -103,8 +103,10 @@ module.exports = class OpenApiValidator {
         httpMethod
       ).responses[response.statusCode] || {};
 
+    const body = response.body || "{}";
+
     if (!targetSchema.validate({
-      body: JSON.parse(response.body),
+      body: JSON.parse(body),
       headers: httpHeaders
     })) {
       throw new ResponseValidationError(targetSchema.errors, this.errorOptions);

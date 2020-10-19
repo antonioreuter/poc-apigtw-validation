@@ -38,6 +38,8 @@ module.exports.handler = async (event) => {
 
     return response;
   } catch (err) {
+    console.error(err);
+    
     return {
       statusCode: 500,
       body: JSON.stringify({

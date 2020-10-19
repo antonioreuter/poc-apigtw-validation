@@ -116,11 +116,15 @@ components:
         enum: ["1"]
     pathPetId:
       name: id
-      required: true
       in: path
       description: The id of the pet
+      required: true
       schema:
+        maxLength: 64
+        minLength: 1
         type: string
+        # pattern: '^[a-zA-Z0-9-]*$'
+
   responses:
     "204":
       description: >
@@ -210,7 +214,7 @@ components:
         name:
           type: string
           description: The pet's name
-          # pattern: '^[a-zA-Z]$'
+          # pattern: '^[a-zA-Z]*$'
         breed:
           type: string
           description: The pet's breed
