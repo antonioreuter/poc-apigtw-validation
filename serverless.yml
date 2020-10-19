@@ -27,7 +27,6 @@ custom:
           - table: 'POC-Pets'
             sources: [ './seed/pets.json' ]
 
-
 provider:
   name: aws
   runtime: nodejs10.x

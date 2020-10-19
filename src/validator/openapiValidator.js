@@ -15,6 +15,21 @@ const cloneHttpHeaders = (headers) => {
   return {};
 }
 
+const parseRequestBody = (request) => {
+  let payload;
+
+  try {
+    payload = JSON.parse(request.body);
+  } catch (err) {
+    throw new RequestValidationError([{
+      dataPath: ".",
+      message: "Unsupported format. The body should be a valid json object"
+    }], this.errorOptions);
+  }
+
+  return payload;
+}
+
 module.exports = class OpenApiValidator {
   constructor(apiSchemaPath, errorOptions = {}) {
     const schemaOptions = {
@@ -63,8 +78,10 @@ module.exports = class OpenApiValidator {
     }
 
     if (targetSchema.body && request.body) {
+      const payload = parseRequestBody(request);
+
       const bodyValidator = targetSchema.body[contentType] || targetSchema.body;
-      if (!bodyValidator.validate(JSON.parse(request.body))) {
+      if (!bodyValidator.validate(payload)) {
         errors.push(bodyValidator.errors);
       }
     }
