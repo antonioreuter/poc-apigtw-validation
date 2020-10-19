@@ -4,7 +4,7 @@ const { uuid } = require("uuidv4");
 const dbClientFactory = require("../util/dbClientFactory");
 const OpenApiValidator = require("../validator/openapiValidator");
 
-const apiValidator = new OpenApiValidator("src/schema/api.yml");
+const apiValidator = new OpenApiValidator("api.yml");
 
 const dbClient = dbClientFactory.createDBClientFactory();
 
