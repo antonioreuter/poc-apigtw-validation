@@ -3,14 +3,14 @@
         "id": "3a6f7b67-22a5-4eee-b06e-c5b24e50bfd0",
         "name": "Francesca",
         "owner": "Antonio Reuter",
-        "breed": "Vira Lata",
+        "breed": "Doberman",
         "color": "WHITE"
     },
     {
         "id": "8241a566-f9c1-42fa-9938-a492fb3df7e5",
         "name": "Greco",
         "owner": "Antonio Reuter",
-        "breed": "Pastor Alemao",
+        "breed": "German shepard",
         "color": "YELLOW"
     }
 ]
